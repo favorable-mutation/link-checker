@@ -19,12 +19,17 @@
       </div>
     </div>
     <script>
-      fetch("/check").then(res => res.json()).then(({ status }) => {
+      fetch("/check").then(res => {console.log(res); return res.json();}).then(({ status, errorUrls }) => {
         const [icon, display] = ["status-icon", "status-display"].map(id => document.getElementById(id));
         icon.style.color = status ? "#3CB700" : "#FF0015";
         icon.classList.remove("fa-question-circle");
         icon.classList.add(status ? "fa-check-circle" : "fa-times-circle");
-        display.innerHTML = status ? "No dead links detected!" : "Dead links detected.";
+        display.innerHTML = status
+          ? "No dead links detected!"
+          : `
+              Dead links detected:
+              <ul>${errorUrls.map(url => `<li><a href="${url}">${url}</a></li>`).join("")}</ul>
+            `;
       })
     </script>
   </body>

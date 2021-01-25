@@ -17,8 +17,13 @@ express()
       // TODO persist status instead of getting it every time
       //        with what datastore? write to a file?
       // TODO display full linkinator results
-      .then(({ passed }) => {
-        res.send({ status: passed });
+      .then(({ passed, links }) => {
+        res.send({
+          status: passed,
+          errorUrls: links
+            .filter(({ state }) => state === "BROKEN")
+            .map(({ url }) => url),
+        });
       })
   )
   .listen(PORT, () => console.log(`Listening on ${PORT}`));

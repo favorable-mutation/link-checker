@@ -8,29 +8,17 @@
     <div class="card" style="width: 66%; margin: 2em auto;">
       <div class="card-body">
         <i
-          id="status-icon"
-          class="fas fa-question-circle"
-          style="color: #111111;"
+          class="fas <%= status === "RUNNING" ? "fa-question-circle" : (status === "SUCCESS" ? "fa-check-circle" : "fa-times-circle"); %>"
+          style="color: #<%= status === "RUNNING" ? "111111" : (status === "SUCCESS" ? "3CB700" : "FF0015") %>;"
           >
         </i>
-        <span id="status-display">
-          Checking for dead links...
+        <span>
+          <%= status === "RUNNING" ? "Checking for dead links...." : (status === "SUCCESS" ? "No dead links detected!" : "Dead links detected:"); %>
+          <ul>
+            <%- status === "FAILURE" ? errorUrls.map((url) => `<li><a href="${url}">${url}</a></li>`).join("") : ""; %>
+          </ul>
         </span>
       </div>
     </div>
-    <script>
-      fetch("/check").then(res => {console.log(res); return res.json();}).then(({ status, errorUrls }) => {
-        const [icon, display] = ["status-icon", "status-display"].map(id => document.getElementById(id));
-        icon.style.color = status ? "#3CB700" : "#FF0015";
-        icon.classList.remove("fa-question-circle");
-        icon.classList.add(status ? "fa-check-circle" : "fa-times-circle");
-        display.innerHTML = status
-          ? "No dead links detected!"
-          : `
-              Dead links detected:
-              <ul>${errorUrls.map(url => `<li><a href="${url}">${url}</a></li>`).join("")}</ul>
-            `;
-      })
-    </script>
   </body>
 </html>

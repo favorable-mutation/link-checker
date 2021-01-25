@@ -7,13 +7,18 @@ express()
   .use(express.static(path.join(__dirname, "public")))
   .set("views", path.join(__dirname, "views"))
   .set("view engine", "ejs")
-  // .get("/", (req, res) => res.render("pages/index"))
-  .get("/", (req, res) => {
+  .get("/", (req, res) => res.render("pages/index"))
+  .get("/check", (req, res) =>
     linkinator
       .check({
         path: "https://pages.github.ccs.neu.edu/jhemann/21SP-CS4400",
         recurse: true,
       })
-      .then(({ passed }) => res.send(passed));
-  })
+      // TODO persist status instead of getting it every time
+      //        with what datastore? write to a file?
+      // TODO display full linkinator results
+      .then(({ passed }) => {
+        res.send({ status: passed });
+      })
+  )
   .listen(PORT, () => console.log(`Listening on ${PORT}`));

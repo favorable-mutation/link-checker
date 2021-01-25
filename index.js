@@ -7,8 +7,8 @@ express()
   .use(express.static(path.join(__dirname, "public")))
   .set("views", path.join(__dirname, "views"))
   .set("view engine", "ejs")
-  .get("/", (req, res) => res.render("pages/index"))
-  .get("/linkinator", (req, res) => {
+  // .get("/", (req, res) => res.render("pages/index"))
+  .get("/", (req, res) => {
     linkinator
       .check({
         path: "https://pages.github.ccs.neu.edu/jhemann/21SP-CS4400",

@@ -22,7 +22,7 @@ express()
       })
       .catch((error) => res.send(`error: ${error}`))
   )
-  .get("/check", (req, res) => {
+  .post("/check", (req, res) => {
     res.sendStatus(200);
     redis.del(statusKey);
     redis.del(urlsKey);

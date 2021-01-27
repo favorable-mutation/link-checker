@@ -1,39 +1,17 @@
-# node-js-getting-started
+## Link Checker
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
+> DISCLAIMER: This application is currently configured for
+> https://pages.github.ccs.neu.edu/jhemann/21SP-CS4400/ ONLY. You will need to
+> manually adapt it to your needs in order to use it for any other site.
 
-This application supports the [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
+In order to set this application up to receive GitHub Webhooks on GitHub Pages
+deploy events (and have it check your published site for dead links), follow
+these steps:
 
-## Running Locally
-
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
-
-```sh
-$ git clone https://github.com/heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install
-$ npm start
-```
-
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-## Deploying to Heroku
-
-```
-$ heroku create
-$ git push heroku main
-$ heroku open
-```
-or
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-## Documentation
-
-For more information about using Node.js on Heroku, see these Dev Center articles:
-
-- [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+1. Open the repo in your browser
+2. Go to `Settings > Hooks > Add Webhook`
+3. Enter https://agile-woodland-90288.herokuapp.com/check for the `Payload URL`
+4. Switch the `Content Type` to `application/json`
+5. Under `Which events would you like to trigger this webhook?` choose `Let me select individual events`
+6. Deselect `Pushes` and select `Page Builds`
+7. Scroll to the bottom and click `Add Webhook`
